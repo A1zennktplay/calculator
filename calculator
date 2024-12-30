@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stylized Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f1ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .calculator {
+      position: relative;
+      width: 280px;
+      height: 400px;
+      background-color: #9b59b6;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    .calculator .display {
+      background: #dcd6f7;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 20px;
+      font-size: 22px;
+      text-align: right;
+      color: #4a4a4a;
+      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .buttons button {
+      background: #f7b2d9;
+      border: none;
+      border-radius: 12px;
+      height: 50px;
+      font-size: 18px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .buttons button:hover {
+      background: #ec88bf;
+      transform: translateY(-3px);
+    }
+
+    .buttons .operator {
+      background: #f4e04d;
+      color: #4a4a4a;
+    }
+
+    .buttons .operator:hover {
+      background: #e6d63b;
+    }
+
+    .buttons .equal {
+      background: #f47c7c;
+      color: white;
+      grid-column: span 2;
+    }
+
+    .buttons .equal:hover {
+      background: #e55c5c;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+      <button onclick="clearDisplay()">AC</button>
+      <button onclick="backspace()">&larr;</button>
+      <button class="operator" onclick="insert('%')">%</button>
+      <button class="operator" onclick="insert('/')">/</button>
+
+      <button onclick="insert('7')">7</button>
+      <button onclick="insert('8')">8</button>
+      <button onclick="insert('9')">9</button>
+      <button class="operator" onclick="insert('*')">*</button>
+
+      <button onclick="insert('4')">4</button>
+      <button onclick="insert('5')">5</button>
+      <button onclick="insert('6')">6</button>
+      <button class="operator" onclick="insert('-')">-</button>
+
+      <button onclick="insert('1')">1</button>
+      <button onclick="insert('2')">2</button>
+      <button onclick="insert('3')">3</button>
+      <button class="operator" onclick="insert('+')">+</button>
+
+      <button onclick="insert('0')">0</button>
+      <button onclick="insert('.')">.</button>
+      <button class="equal" onclick="calculate()">=</button>
+    </div>
+  </div>
+
+  <script>
+    function clearDisplay() {
+      document.getElementById('display').innerText = '0';
+    }
+
+    function backspace() {
+      const display = document.getElementById('display');
+      display.innerText = display.innerText.slice(0, -1) || '0';
+    }
+
+    function insert(value) {
+      const display = document.getElementById('display');
+      if (display.innerText === '0') {
+        display.innerText = value;
+      } else {
+        display.innerText += value;
+      }
+    }
+
+    function calculate() {
+      const display = document.getElementById('display');
+      try {
+        display.innerText = eval(display.innerText);
+      } catch {
+        display.innerText = 'Error';
+      }
+    }
+  </script>
+</body>
+</html>
